@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Easy Setting{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <div class="card w-50 mx-auto m-3" style="opacity: 0.95;">
+    <h5 class="card-header">Change Email</h5>
+    <div class="card-body">
+      <form method="post" enctype="multipart/form-data" class="d-flex flex-column">
+        <div class="form-group row pt-1">
+          <label for="email" class="col-sm-4 col-form-label col-form-label-sm">New Email</label>
+          <div class="col-sm-8">
+            <input type="email" id="email" name="email" required value="{{ request.form['email'] }}" class="form-control form-control-sm" placeholder="Your new email">
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-dark">Update</button>
+      </form>
+    </div>
+  </div>
+
+
+  <div class="card w-50 mx-auto m-3" style="opacity: 0.95;">
+    <h5 class="card-header">Change Password</h5>
+    <div class="card-body">
+
+      <form method="post" enctype="multipart/form-data" class="d-flex flex-column">
+        <div class="form-group row pt-1">
+          <label for="nowpass" class="col-sm-4 col-form-label col-form-label-sm">Current Password</label>
+          <div class="col-sm-8">
+            <input type="password" id="nowpass" name="nowpass" required value="{{ request.form['nowpass'] }}" class="form-control form-control-sm" placeholder="Your current password">
+          </div>
+        </div>
+
+
+        <div class="form-group row pt-1">
+          <label for="nowpass" class="col-sm-4 col-form-label col-form-label-sm">New Password</label>
+          <div class="col-sm-8">
+            <input type="password" id="password" name="password" required value="{{ request.form['password'] }}" class="form-control form-control-sm" placeholder="Your new password">
+          </div>
+        </div>
+
+
+        <div class="form-group row pt-1">
+          <label for="repassword" class="col-sm-4 col-form-label col-form-label-sm">Confirm Password</label>
+          <div class="col-sm-8">
+            <input type="password" id="repassword" name="repassword" required value="{{ request.form['repassword'] }}" class="form-control form-control-sm" placeholder="Confirm password">
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-dark">Update</button>
+      </form>
+    </div>
+  </div>
+
+
+  <div class="card w-50 mx-auto m-3" style="opacity: 0.95;">
+    <h5 class="card-header">Change Profile Image</h5>
+    <div class="card-body">
+      <form method="post" enctype="multipart/form-data" class="d-flex flex-column">
+        <div class="form-group row pt-1">
+          <label for="photo" class="col-sm-4 col-form-label col-form-label-sm">Profile Image</label>
+          <div class="col-sm-8">
+            <input name="photo" type="file" class="form-control-file" id="photo">
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-dark">Update</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,121 @@
+  {% extends 'base.html' %}
+
+{% block title %}Posts{% endblock %}
+
+
+{% block content %}
+
+  <div class="container-fluid" style="opacity: 0.95;">
+      <section class="mb-2 p-4 bg-light text-center container-fliud rounded">
+      <div class="row">
+        <div class="mx-auto mb-2">
+          <h1>CatEatPad</h1>
+          <p class="lead text-muted">We help pet owners to find a temporary home for their pets!</p>
+          <p class="lead text-muted">Connect with a foster family? Start with</p>
+        </div>
+        {% if g.user %}
+        <div class="text-center">
+          <a href="{{ url_for('blog.create') }}">
+
+          <button type="button" class="btn btn-warning btn-sm">Publish a New Post</button></a>
+        </div>
+        {% else %}
+        <div class="text-center">
+          <p><button type="button" disabled class="btn btn-dark btn-block">Publish a New Post</button></p>
+
+          <small class="text-center text-muted">Please login to Publish</small>
+        </div>
+        {% endif %}
+      </div>
+    </section>
+
+
+    <section>
+    <div class="row">
+
+      <div class="col-lg-3">
+        <div class="m-2 p-2">
+
+          <div class="pt-3">
+          <form action="" method="post" enctype="multipart/form-data" class="d-flex flex-column">
+
+            <div class="form-group row">
+              <label for="type" class="col-3 col-form-label col-form-label-sm text-white">Type</label>
+              <div class="col-9">
+                <input id="type" name="type" value="{{ request.form['type'] }}" class="form-control form-control-sm" placeholder="Type of pet.">
+              </div>
+            </div>
+        
+            <div class="form-group row">
+              <label for="city" class="col-3 col-form-label col-form-label-sm text-white">City</label>
+              <div class="col-9">
+                <input id="city" name="city" value="{{ request.form['city'] }}" class="form-control form-control-sm" placeholder="Your location.">
+              </div>
+            </div>
+        
+            <div class="form-group row">
+              <label for="startdate" class="col-3 col-form-label col-form-label-sm text-white">Start</label>
+              <div class="col-9">
+                <input type="date" id="startdate" name="startdate" value="{{ request.form['startdate'] }}" class="form-control form-control-sm">
+              </div>
+            </div>
+        
+            <div class="form-group row">
+              <label for="enddate" class="col-3 col-form-label col-form-label-sm text-white">End</label>
+              <div class="col-9">
+                <input type="date" id="enddate" name="enddate" value="{{ request.form['enddate'] }}" class="form-control form-control-sm">
+              </div>
+            </div>
+            <a class="link-secondary" href="/" aria-label="Search"></a>
+            <button type="submit" class="btn btn-warning">
+              <i class="fas fa-search"></i>
+              Search
+            </button>
+            </a>
+            
+        
+          </form>
+        </div>
+        </div>
+      </div>
+
+      <div class="col-lg-9">
+        <div class="m-1 p-2">
+          <div class="album">
+            <div class="container">
+              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+                {% for post in posts %}
+                <div class="col">
+                  <div class="card shadow">
+                    <a class="link-dark" href="{{ url_for('blog.ViewPost', pet_id=post['id']) }}">
+                    <img class="card-img-top" height="225" src="{{post['image']}}" alt="Card image cap"></a>
+                    <div class="card-body">
+                      <p><strong>Type: </strong> {{post['type']}}, <strong>Age: </strong> {{post['age']}}</p>
+                      <p><strong>Location:</strong> {{post['location']}}</p>
+                      <p><strong>Duration:</strong> <small> {{post['startdate'].strftime('%Y-%m-%d')}} to {{post['enddate'].strftime('%Y-%m-%d')}} </small></p>
+                      <p class="mt-1 text-muted text-end">{{ post['username'] }} posted on {{ post['created'].strftime('%Y-%m-%d') }}</p>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+
+
+              </div>
+            </div>
+          </div>
+          <div class="m-5">
+            {{pagination.links}}
+        </div>
+      </div>
+    </div>
+
+
+  </section>
+
+
+
+
+  </div>
+
+{% endblock %}

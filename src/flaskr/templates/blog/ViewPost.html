@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Post "{{ post['title'] }}"{% endblock %}</h1>
+
+{% block content %}
+  <div class="bg-light rounded p-4 m-1 w-75 mx-auto" style="opacity: 0.95;">
+    <h2>Pet Information</h2>
+    <div class="bg-white shadow m-4 p-3 rounded">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-8">
+            <p class="m-2"><strong>Type: </strong>{{post['type']}}</p>
+            <p class="m-2"><strong>Age: </strong>{{post['age']}}</p>
+            <p class="m-2"><strong>Weight: </strong>{{post['weight']}}</p>
+            <p class="m-2"><strong>City: </strong>{{post['location']}}</p>
+            <p class="m-2"><strong>Start Date: </strong>{{post['startdate'].strftime('%Y-%m-%d')}}</p>
+            <p class="m-2"><strong>End Date: </strong>{{post['enddate'].strftime('%Y-%m-%d')}}</p>
+            <p class="m-2"><strong>Description: </strong>{{post['description']}}</p>
+          </div>
+          <div class="col-sm-4 text-center pt-4">
+            <a href="{{ url_for('user.home', user_id=post['owner_id']) }}">
+              <img src="{{post['image']}}" width="96" height="96" class="rounded-circle me-2">
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <h2>Comments</h2>
+    <div class="bg-white shadow m-4 p-3 rounded">
+      <ul class="list-group m-0 p-0">
+        {% for  reply in post['reply']%}
+        <li class="border-0 list-group-item d-flex justify-content-between align-items-center">
+            <!-- <div class="d-flex w-100 justify-content-between">
+                <span class="pr-2">{{ reply['body'] }}</span>
+                <small class="pl-3 text-muted">by {{ reply['username'] }} on {{ reply['created'].strftime('%Y-%m-%d') }}</small>
+            </div> -->
+            <div class="container-fluid m-0">
+              <div class="row m-0">
+                <div class="col-sm-8">
+                  <p class="m-0">{{ reply['body'] }}</p>
+                </div>
+                <div class="col-sm-4">
+                  <small class="text-muted">by {{ reply['username'] }} on {{ reply['created'].strftime('%Y-%m-%d') }}</small>
+                </div>
+              </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    </div>
+
+    <h2>Add Comment</h2>
+    <div class="bg-white shadow m-4 p-3 rounded">
+      <form method="post">
+          <div class="pt-1">
+            <textarea class="form-control form-control-sm" required name="body"  id="body" placeholder="Leave your comment." rows="2"></textarea>
+          </div>
+          <button type="submit" value="Save" id="upload-button" class="btn btn-dark">Submit</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
