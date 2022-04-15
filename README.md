@@ -41,6 +41,3 @@ set FLASK_DEBUG=1
 set FLASK_APP=flaskr
 py -m flask run
 ```
-
-#### about Flask
-- [Learn Flask for Python(youtube)](https://www.youtube.com/watch?v=Z1RJmh_OqeA)
