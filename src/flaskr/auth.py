@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-# author: zyk
-# responsible for login & logout & register
-
 import re
 import functools
 import logging

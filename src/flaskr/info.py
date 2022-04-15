@@ -191,7 +191,6 @@ class PetInfo:
         self.pdescription = pdescription
         self.pstart = pstart
         self.pend = pend
-        # self.pgender = pgender
     
     @staticmethod
     def add_new_pet(form, file):
@@ -252,8 +251,6 @@ class PetInfo:
             image = ImageInfo.get_image_by_id(image_id=pet["image"]["id"])
             pet["image"] = image["filename"]
             pets.append(pet)
-            # pets.append(PetInfo(pid=pet["id"], pweight=pet["weight"], p_age=pet["age"], 
-            #                     ptype=pet["type"], pdescription=pet["description"], pimage=image))
         return pets   
 
     @staticmethod

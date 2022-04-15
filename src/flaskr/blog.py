@@ -1,6 +1,3 @@
-# main page
-# 1. show posts in the nearby location
-# 2. show 
 from logging import log
 from flask import (
     Blueprint, flash, g, session, redirect, render_template, request, url_for, current_app

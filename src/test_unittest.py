@@ -12,19 +12,18 @@ c = app.test_client()
 with c.session_transaction() as sess:
         sess['imagecode'] = '11'
 
-""" we perform our test on user "zyk" """
-test_uid = UserDB.select().where(UserDB.username == "zyk")
+test_uid = UserDB.select().where(UserDB.username == "syh")
 if len(test_uid) == 0:
     with app.test_request_context():
         register_form = RegistrationForm(
-            username="zyk",
-            password="zykzykzyk", 
-            confirm_password="zykzykzyk",
-            email="zyksir@gmail.com",
+            username="syh",
+            password="syhsyhsyh",
+            confirm_password="syhsyhsyh",
+            email="syh@gmail.com",
             imagecode="11"
         )
         c.post("/auth/register", data=register_form.data, follow_redirects=True)
-        test_uid = UserDB.select(UserDB.id).where(UserDB.username == "zyk")
+        test_uid = UserDB.select(UserDB.id).where(UserDB.username == "syh")
 test_uid = test_uid.get().id
 
 def string_in_page(str_list, page):
@@ -40,8 +39,6 @@ def check_get(url, expected_string):
     status_code, resp_data = response.status_code, str(response.data)
     assert status_code == 200, f"{url} GET Error: {status_code}"
     ok, err_string = string_in_page(expected_string, resp_data)
-    # if "ViewPost" in url:
-    #     print(resp_data)
     assert ok, f"{url} GET Error: {err_string} not exists in return content"
 
 def check_post(url, expected_string, request, unexpected_string=None):
@@ -49,8 +46,6 @@ def check_post(url, expected_string, request, unexpected_string=None):
     status_code, resp_data = response.status_code, str(response.data)
     assert status_code == 200, f"{url} Post Error: {status_code}"
     ok, err_string = string_in_page(expected_string, resp_data)
-    # if "/auth/login" in url and "Type" in err_string:
-    #     print(resp_data)
     assert ok, f"{url} POST Error: {err_string} not exists in return content"
     if unexpected_string is not None:
         ok, err_string = string_in_page(unexpected_string, resp_data)
@@ -63,10 +58,10 @@ def test_register():
 
     with app.test_request_context():
         register_form = RegistrationForm(
-            username="zyk",
-            password="zykzykzyk", 
-            confirm_password="zykzykzyk",
-            email="zyksir@gmail.com",
+            username="syh",
+            password="syhsyhsyh",
+            confirm_password="syhsyhsyh",
+            email="syh@gmail.com",
             imagecode="13"
         )
         check_post(url="/auth/register", request=register_form.data,
@@ -88,19 +83,19 @@ def test_login():
 
     with app.test_request_context():
         login_form = LoginForm(
-            username="zyk",
-            password="zykzykzyk", 
+            username="syh",
+            password="syhsyhsyh",
             imagecode="13"
         )
         check_post(url="/auth/login", 
                     request=login_form.data,
                     expected_string=["Imagecode Incorrect"])
         login_form.imagecode.data = "11"
-        login_form.password.data = "test_zyk"
+        login_form.password.data = "test_syh"
         check_post(url="/auth/login", 
                     request=login_form.data,
                     expected_string=["Password Incorrect", "Login</button>"])
-        login_form.password.data = "zykzykzyk"
+        login_form.password.data = "syhsyhsyh"
         login_form.username.data = "t"
         check_post(url="/auth/login", 
                     request=login_form.data,
@@ -120,7 +115,7 @@ def test_user_profile():
     with c.session_transaction() as sess:
         sess['user_id'] = test_uid
     check_get(url=f"/user/home/{test_uid}",
-              expected_string=["zyk", "zyksir@gmail.com", "Recent Published"])
+              expected_string=["syh", "syhsyhsyh@gmail.com", "Recent Published"])
     
 def test_set_user_profile():
     with c.session_transaction() as sess:
@@ -128,13 +123,13 @@ def test_set_user_profile():
     
     check_get(url=f"/user/set", expected_string=["Update"])
 
-    set_request = {"email" : "zyk_test@gmail.com"}
+    set_request = {"email" : "syh_test@gmail.com"}
     check_post(url=f"/user/set",  request=set_request,
-              expected_string=["zyk", "zyk_test@gmail.com"])
-    set_request = {"email" : "zyksir@gmail.com"}
+              expected_string=["syh", "syh_test@gmail.com"])
+    set_request = {"email" : "syh@gmail.com"}
     check_post(url=f"/user/set",  request=set_request,
-              expected_string=["zyk", "zyksir@gmail.com"])
-    set_request = {"nowpass" : "zykzykzykzyk", "password": "zykzykzyk","repassword": "zykzykzyk"}
+              expected_string=["syh", "syh@gmail.com"])
+    set_request = {"nowpass" : "syhsyhsyh", "password": "syhsyhsyh","repassword": "syhsyhsyh"}
     check_post(url=f"/user/set",  request=set_request,
               expected_string=["Wrong password"])
 

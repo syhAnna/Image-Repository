@@ -1,4 +1,4 @@
-### About CatEatPad
+### About ImageRepository -- CatEatPad
 #### main Structure
 ##### FrontEnd 
 The source code of FrontEnd is in `flaskr/templates`. 
@@ -28,15 +28,6 @@ The source code of FrontEnd is in `flaskr/templates`.
     "database": "CatEatPad"
 }
 ```
-
-#### how to generate docs
-Before generating the docs, need to replace reading dbConfig from file in db.py with direct dictionary assignment.
-```bash
-cd src/docs
-make clean
-make html
-```
-Then, the doc is availble in `src/docs/build/html/index.html`. 
 
 ##### test
 - run `pytest` in `src` to test. more more details, see [testing in Flask](https://flask.palletsprojects.com/en/2.0.x/testing/)

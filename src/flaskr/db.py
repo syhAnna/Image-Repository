@@ -1,8 +1,3 @@
-# -*- coding: utf-8 -*-
-# author: zyk
-# create a connection to it. Any queries and operations are performed using the connection
-# define tables that need to be used
-
 import sys
 from collections import defaultdict
 from flask import current_app, g
