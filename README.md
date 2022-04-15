@@ -41,3 +41,11 @@ set FLASK_DEBUG=1
 set FLASK_APP=flaskr
 py -m flask run
 ```
+
+##### Link the specific challenge to your application
+
+Inside Image-Repository/src/flaskr/info.py, I implemented the function:
+
+- get_image_by_id
+- add_new_image
+- delete_image
